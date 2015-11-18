@@ -3,7 +3,7 @@ docker-openresty
 
 Docker Image with:
 * OpenResty v1.9.3.1
-* Redis v3.6.0
+* Redis v3:3.0.5 (Chris Lea)
 * and LuaRocks v2.2.2
 
 
