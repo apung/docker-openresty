@@ -1,15 +1,16 @@
 FROM quay.io/3scale/base:trusty
 
 MAINTAINER Michal Cichra <michal@3scale.net> # 2014-05-21
+MAINTAINER Abdul Gaffur A Dama <apung.dama@gmail.com> #2015-11-18
 
 # all the apt-gets in one command & delete the cache after installing
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 136221EE520DDFAF0A905689B9316A7BC7917B12 \
  && echo 'deb http://ppa.launchpad.net/chris-lea/redis-server/ubuntu trusty main' > /etc/apt/sources.list.d/redis.list \
- && apt-install redis-server=2:2.8.17-1chl1~trusty1 cron supervisor logrotate \
+ && apt-install redis-server=3.6.0-1chl1~trusty1 cron supervisor logrotate \
                 make build-essential libpcre3-dev libssl-dev wget \
                 iputils-arping libexpat1-dev unzip curl
 
-ENV OPENRESTY_VERSION 1.7.4.1
+ENV OPENRESTY_VERSION 1.9.3.1
 ADD ngx_openresty-${OPENRESTY_VERSION}.tar.gz /root/
 RUN cd /root/ngx_openresty-* \
  && curl https://gist.githubusercontent.com/mikz/4dae10a0ef94de7c8139/raw/33d6d5f9baf68fc5a0748b072b4d94951e463eae/system-ssl.patch | patch -p0 \
@@ -40,7 +41,7 @@ RUN cd /root/ngx_openresty-* \
 RUN ln -sf /opt/openresty/luajit/bin/luajit-2.1.0-alpha /opt/openresty/luajit/bin/lua \
  && ln -sf /opt/openresty/luajit/bin/lua /usr/local/bin/lua
 
-RUN wget -qO- http://luarocks.org/releases/luarocks-2.2.0.tar.gz | tar xvz -C /tmp/ \
+RUN wget -qO- http://luarocks.org/releases/luarocks-2.2.2.tar.gz | tar xvz -C /tmp/ \
  && cd /tmp/luarocks-* \
  && ./configure --with-lua=/opt/openresty/luajit \
     --with-lua-include=/opt/openresty/luajit/include/luajit-2.1 \

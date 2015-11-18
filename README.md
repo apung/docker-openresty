@@ -1,12 +1,15 @@
 docker-openresty
 ================
 
-Docker Image with Openresty, redis and luarocks
+Docker Image with:
+* OpenResty v1.9.3.1
+* Redis v3.6.0
+* and LuaRocks v2.2.2
 
 
 ## Example Usage
 
-    FROM 3scale/openresty
+    FROM apung/openresty
     
     ## add your supervisor openresty config
     ADD openresty.conf /etc/supervisor/conf.d/
