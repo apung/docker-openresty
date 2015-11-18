@@ -6,14 +6,13 @@ MAINTAINER Abdul Gaffur A Dama <apung.dama@gmail.com> #2015-11-18
 # all the apt-gets in one command & delete the cache after installing
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 136221EE520DDFAF0A905689B9316A7BC7917B12 \
  && echo 'deb http://ppa.launchpad.net/chris-lea/redis-server/ubuntu trusty main' > /etc/apt/sources.list.d/redis.list \
- && apt-install redis-server=3.6.0-1chl1~trusty1 cron supervisor logrotate \
+ && apt-install redis-server=3:3.0.5-1chl1~trusty1 cron supervisor logrotate \
                 make build-essential libpcre3-dev libssl-dev wget \
                 iputils-arping libexpat1-dev unzip curl
 
 ENV OPENRESTY_VERSION 1.9.3.1
 ADD ngx_openresty-${OPENRESTY_VERSION}.tar.gz /root/
 RUN cd /root/ngx_openresty-* \
-## && curl https://gist.githubusercontent.com/mikz/4dae10a0ef94de7c8139/raw/33d6d5f9baf68fc5a0748b072b4d94951e463eae/system-ssl.patch | patch -p0 \
  && ./configure --prefix=/opt/openresty --with-http_gunzip_module --with-luajit \
     --with-luajit-xcflags=-DLUAJIT_ENABLE_LUA52COMPAT \
     --http-client-body-temp-path=/var/nginx/client_body_temp \
